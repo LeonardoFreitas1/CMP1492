@@ -1,0 +1,93 @@
+<?page title="Movimentação" contentType="text/html;charset=UTF-8"?>
+<zk>
+<zscript><![CDATA[//@IMPORT
+    import Estoque.Controle.MovimentacaoControle;
+    import Estoque.Controle.InternacionalizacaoControle;
+	]]></zscript>
+	<window id = "Movimentacao" title="Cadastro de Movimentações" border="normal" closable="true" width="90%" apply="MovimentacaoControle,InternacionalizacaoControle">
+			
+			<tabbox>
+			<tabs>
+				<tab id="tabManterMovimentacao"/>
+				<tab id="tabPesquisarMovimentacao"/>
+			</tabs>
+			<tabpanels>
+				<tabpanel>
+					<grid>
+						<columns>
+							<column label="" width="100px"/>
+							<column label=""/>
+						</columns>
+						<rows>
+							<row>
+								<label value="Id" />
+								<intbox id="intIdMovimentacao" cols="15" readonly="true" />
+							</row>						
+							<row>
+								<label id="secao"/>
+								<combobox id = "combSecaoMovimentacao" cols="40">
+									<comboitem label=""/>
+								</combobox>	
+							</row>		
+							<row>
+								<label id="Produto"/>
+								<chosenbox id = "chosenProdutosMovimentacao"  hflex="10" emptyMessage="Selecione um produto"/>
+								
+							</row>
+						</rows>
+					</grid>					
+					<groupbox>
+						<div align="center">
+						<button id="btnIncluirMovimentacao"/>
+						<button id="btnAlterarMovimentacao"/>
+						<button id="btnExcluirMovimentacao"/>
+						<button id="btnLimparMovimentacao"/>
+						</div>
+					</groupbox>
+				</tabpanel>
+				
+				<tabpanel>
+					<grid>
+						<columns>
+							<column label="" width="200px"/>
+							<column label="" />
+						</columns>
+						<rows>
+							<row>
+								<label id="filtro"/>
+								<combobox id="filtarPesquisaMovimentacao">
+									<comboitem label="Produto"/>
+									<comboitem label="Seção"/>
+								</combobox>
+							</row>
+							<row>
+								<label id="pesquisa"/>
+								<textbox id="txtPesqMovimentacao" cols="35"/>								
+								<button id="btnAtualizarPesqMovimentacao"/>
+							</row>
+						</rows>
+					</grid>
+					<groupbox>
+						<listbox id="lsbPesqMovimentacao" rows="6">
+							<listhead>
+								<listheader label="id" sort="auto" width="15%" />
+								<listheader id="lhSecao" sort="auto" />
+								<listheader id="lhProduto" sort="auto" />								
+							</listhead>
+							<listitem>
+								<listcell label="" />
+								<listcell label="" />
+								<listcell label="" />
+							</listitem>
+						</listbox>
+					</groupbox>
+					<groupbox>
+						<div align="center">
+							<button id="btnLimparPesqMovimentacao"/>
+						</div>
+					</groupbox>
+				</tabpanel>
+			</tabpanels>
+		</tabbox>
+	</window>
+</zk>

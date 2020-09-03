@@ -1,0 +1,85 @@
+<?page title="Produto" contentType="text/html;charset=UTF-8"?>
+<zk>
+<zscript><![CDATA[//@IMPORT
+    import Estoque.Controle.ProdutoControle;
+	]]></zscript>
+	<window id = "Produto" title="Cadastro de Produtos" border="normal" closable="true" width="90%" apply="Estoque.Controle.ProdutoControle">
+			
+			<tabbox>
+			<tabs>
+				<tab label="Manter Cadastro" id="tabManterProduto"/>
+				<tab label="Pesquisar" id="tabPesquisarProduto"/>
+			</tabs>
+			<tabpanels>
+				<tabpanel>
+					<grid>
+						<columns>
+							<column label="" width="100px"/>
+							<column label=""/>
+						</columns>
+						<rows>
+							<row>
+								<label value="Id" />
+								<intbox id="intIdProduto" cols="15" readonly="true" />
+							</row>
+							<row>
+								<label value="Nome" />
+								<textbox id="txtNomeProduto" cols="45"/>
+							</row>						
+							<row>
+								<label value="Grupo" />
+								<combobox id = "combGrupoProduto" cols="40">
+									<comboitem label=""/>
+								</combobox>	
+							</row>
+						</rows>
+					</grid>						
+					<groupbox>
+						<div align="center">
+						<button id="btnIncluirProduto" label="Incluir"/>
+						<button id="btnAlterarProduto" label="Alterar"/>
+						<button id="btnExcluirProduto" label="Excluir"/>
+						<button id="btnLimparProduto" label="Limpar"/>
+						</div>
+					</groupbox>
+				</tabpanel>
+				
+				<tabpanel>
+					<grid>
+						<columns>
+							<column label="" width="200px"/>
+							<column label="" />
+						</columns>
+						<rows>
+							<row>
+								<label value="Pesquisar Produtos" />
+								<textbox id="txtPesqProduto" cols="35"/>
+								<button id="btnAtualizarPesqProduto" label="Atualizar" />
+							</row>
+						</rows>
+					</grid>
+					<groupbox>
+						<listbox id="lsbPesqProduto" rows="6">
+							<listhead>
+								<listheader label="id" sort="auto" width="15%" />
+								<listheader label="Nome" sort="auto" width="45%" />
+								<listheader label="Seção" sort="auto" width="40%" />
+								
+							</listhead>
+							<listitem>
+								<listcell label="" />
+								<listcell label="" />
+								<listcell label="" />
+							</listitem>
+						</listbox>
+					</groupbox>
+					<groupbox>
+						<div align="center">
+							<button id="btnLimparPesqProduto" label="Limpar" />
+						</div>
+					</groupbox>
+				</tabpanel>
+			</tabpanels>
+		</tabbox>
+	</window>
+</zk>

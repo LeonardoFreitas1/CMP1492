@@ -1,0 +1,94 @@
+<?page title="Usuario" contentType="text/html;charset=UTF-8"?>
+<zk>
+<zscript><![CDATA[//@IMPORT
+    import Estoque.Controle.UsuarioControle;
+    import Estoque.Controle.LoginPermissaoControle;
+	]]></zscript>
+	<window id = "Usuario" title="Cadastro de Usuários" border="normal" closable="true" width="90%" apply="LoginPermissaoControle,UsuarioControle">
+			
+			<tabbox>
+				<tabs>
+					<tab label="Manter Usuario" id="tabManterUsuario"/>
+					<tab label="Pesquisar" id="tabPesquisarUsuario"/>
+				</tabs>
+				<tabpanels>
+					<tabpanel>
+						<grid>
+							<columns>
+								<column label="" width="100px"/>
+								<column label=""/>
+							</columns>
+							<rows>
+								<row>
+									<label value="Id" />
+									<intbox id="intIdUsuario" cols="15" readonly="true" />
+								</row>
+								<row>
+									<label value="Login" />
+									<textbox id="txtNovoLoginUsu" cols="45"/>
+								</row>
+								<row>
+									<label value="Senha" />
+									<textbox id="txtNovaSenhaUsu" type="password" cols="40"/>
+								</row>							
+								<row>
+								 	<label value= ""/>
+								 	<checkbox id="checkSenha" label="Mostar a senha" width="200px"/>
+								 </row>
+								<row>
+									<label value="Permissão" />
+									<combobox  id="combPermissao" value= "">
+										<comboitem label="Administrador"/>
+										<comboitem label="Padrão"/>
+									</combobox>
+								</row>
+							</rows>
+						</grid>						
+						<groupbox>
+							<div align="center">
+							<button id="btnIncluirUsu" label="Incluir"/>
+							<button id="btnAlterarUsu" label="Alterar"/>
+							<button id="btnExcluirUsu" label="Excluir"/>
+							<button id="btnLimparUsu" label="Limpar"/>
+							</div>
+						</groupbox>
+					</tabpanel>
+				
+					<tabpanel>
+						<grid>
+							<columns>
+								<column label="" width="200px"/>
+								<column label="" />
+							</columns>
+							<rows>
+								<row>
+									<label value="Pesquisar Usuários" />
+									<textbox id="txtPesqUsu" cols="35"/>
+									<button id="btnAtualizarPesqUsu" label="Atualizar" />
+								</row>
+							</rows>
+						</grid>
+						<groupbox>
+							<listbox id="lsbPesqUsu" rows="6">
+								<listhead>
+									<listheader label="id" sort="auto" width="15%" />
+									<listheader label="Nome" sort="auto" width="45%" />
+									<listheader label="Permissão" sort="auto" width="45%" />
+								</listhead>
+								<listitem>
+									<listcell label="" />
+									<listcell label="" />
+									<listcell label="" />
+								</listitem>
+							</listbox>
+						</groupbox>
+						<groupbox>
+							<div align="center">
+								<button id="btnLimparPesqUsuario" label="Limpar" />
+							</div>
+						</groupbox>
+					</tabpanel>
+				</tabpanels>
+			</tabbox>
+	</window>
+</zk>

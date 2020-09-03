@@ -1,0 +1,38 @@
+<?page title="Login" contentType="text/html;charset=UTF-8"?>
+<zk>
+<zscript><![CDATA[//@IMPORT
+    import Estoque.Controle.LoginPermissaoControle;
+	import Estoque.Controle.MenuControle;
+	]]></zscript>
+	<window id = "Login" title="Login" border="normal" width="90%"  closable="true" apply= "LoginPermissaoControle, MenuControle">
+		<div align="center">
+				<grid>
+					<columns>
+		
+						<column label="" width="100px"/>
+						<column label=""/>
+					</columns>
+					<rows>
+						<row>
+							<label value="Login" />
+							<textbox id="txtUsu" cols="50" maxlength="25"/>
+						</row>
+						<row>
+							<label value="Senha" />
+							<textbox id="txtSenha" type="password" maxlength="15" cols="21"/>
+						</row>
+						<row>
+						 	<label value= ""/>
+						 	<checkbox id="checkMostrarSenha" label="Mostrar a senha" width="200px"/>
+						 </row>
+					</rows>
+				</grid>
+				<groupbox>
+					<div align="center">
+						<button id="btnLogin" label="Login" />
+						<button id="btnLogout" label="Logout" />
+					</div>
+				</groupbox>
+			</div>			
+	</window>
+</zk>

@@ -1,0 +1,76 @@
+<?page title="Grupo" contentType="text/html;charset=UTF-8"?>
+<zk>
+<zscript><![CDATA[//@IMPORT
+    import Estoque.Controle.GrupoControle;
+	]]></zscript>
+	<window id = "Grupo" title="Cadastro de Grupos" border="normal" closable="true" width="90%" apply="Estoque.Controle.GrupoControle">
+			
+			<tabbox>
+			<tabs>
+				<tab label="Manter Cadastro" id="tabManterGrupo"/>
+				<tab label="Pesquisar" id="tabPesquisarGrupo"/>
+			</tabs>
+			<tabpanels>
+				<tabpanel>
+					<grid>
+						<columns>
+							<column label="" width="100px"/>
+							<column label=""/>
+						</columns>
+						<rows>
+							<row>
+								<label value="Id" />
+								<intbox id="intIdGrupo" cols="15" readonly="true" />
+							</row>
+							<row>
+								<label value="Nome" />
+								<textbox id="txtNomeGrupo" cols="50"/>
+							</row>
+						</rows>
+					</grid>						
+					<groupbox>
+						<div align="center">
+						<button id="btnIncluirGrupo" label="Incluir"/>
+						<button id="btnAlterarGrupo" label="Alterar"/>
+						<button id="btnExcluirGrupo" label="Excluir"/>
+						<button id="btnLimparGrupo" label="Limpar"/>
+						</div>
+					</groupbox>
+				</tabpanel>
+				
+				<tabpanel>
+					<grid>
+						<columns>
+							<column label="" width="200px"/>
+							<column label="" />
+						</columns>
+						<rows>
+							<row>
+								<label value="Pesquisar Grupos" />
+								<textbox id="txtPesqGrupo" cols="35"/>
+								<button id="btnAtualizarPesqGrupo" label="Atualizar" />
+							</row>
+						</rows>
+					</grid>
+					<groupbox>
+						<listbox id="lsbPesqGrupo" rows="6">
+							<listhead>
+								<listheader label="id" sort="auto" width="15%" />
+								<listheader label="Nome" sort="auto" width="85%" />
+							</listhead>
+							<listitem>
+								<listcell label="" />
+								<listcell label="" />
+							</listitem>
+						</listbox>
+					</groupbox>
+					<groupbox>
+						<div align="center">
+							<button id="btnLimparPesqGrupo" label="Limpar" />
+						</div>
+					</groupbox>
+				</tabpanel>
+			</tabpanels>
+		</tabbox>
+	</window>
+</zk>

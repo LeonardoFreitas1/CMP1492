@@ -1,0 +1,20 @@
+<?page title="Relatório" contentType="text/html;charset=UTF-8"?>
+<zk>
+<zscript><![CDATA[//@IMPORT
+    import Estoque.Controle.RelatorioControle;
+	]]></zscript>
+	<window id = "Relatorio" title="Relatório" border="normal" width="90%" height="90%" closable="true" apply="RelatorioControle">
+		<div align="center">
+			
+			<div align="left">	
+				<label value="Flitar por seção:"/>		
+				<combobox id="combFiltroSecao"></combobox>
+				<button id="btnRelatorio" label="Gerar Relatório"/>		
+			</div>	
+			<iframe id="report" width="600px" height="400px" src=""/>			
+		</div>
+		<zscript><![CDATA[	
+     		
+		]]></zscript>		
+	</window>
+</zk>
