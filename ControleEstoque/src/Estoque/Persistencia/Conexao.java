@@ -4,13 +4,14 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+
 import Estoque.Util.Utilidade;
 
 public class Conexao {
 	
-	private String login = "root";
-	private String senha = "";
-	private String url = "jdbc:mysql://localhost/zk";
+	private String login = "postgre";
+	private String senha = "postgre";
+	private String url = "jdbc:postgres://localhost/Banco-Leonardo";
 	
 	public Connection conexao = null;
 	

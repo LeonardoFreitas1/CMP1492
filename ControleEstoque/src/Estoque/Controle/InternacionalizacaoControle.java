@@ -50,7 +50,7 @@ public class InternacionalizacaoControle extends SelectorComposer<Window>{
 	@Wire 
 	Tab tabManterMovimentacao,tabPesquisarMovimentacao;
 	
-	//qunado a tela de menu abrir o idioma já selecionado será o português
+	//qunado a tela de menu abrir o idioma jï¿½ selecionado serï¿½ o portuguï¿½s
 	@Listen("onCreate = #wMenu")
 	public void selecionarPortugues()
 	{
@@ -58,8 +58,8 @@ public class InternacionalizacaoControle extends SelectorComposer<Window>{
 		this.mudarIdioma();
 	}
 	
-	//ao criar a tela de movimentação
-	//o idioma é o mesmo que que está selelcionado na tela de menu
+	//ao criar a tela de movimentaï¿½ï¿½o
+	//o idioma ï¿½ o mesmo que que estï¿½ selelcionado na tela de menu
 	@Listen("onCreate = #Movimentacao")
 	public void mudarIdiomaMovimentacao()
 	{
@@ -72,12 +72,12 @@ public class InternacionalizacaoControle extends SelectorComposer<Window>{
 			btnLimparMovimentacao.setLabel("Limpar");
 			btnLimparPesqMovimentacao.setLabel("Limpar");
 			btnAtualizarPesqMovimentacao.setLabel("Pesquisar");
-			secao.setValue("Seção");
+			secao.setValue("Seï¿½ï¿½o");
 			Produto.setValue("Produto");
 			filtro.setValue("Filtrar pesquisa");
-			pesquisa.setValue("Pesquisar movimentações");
+			pesquisa.setValue("Pesquisar movimentaï¿½ï¿½es");
 			lhProduto.setLabel("Produto");
-			lhSecao.setLabel("Seção");
+			lhSecao.setLabel("Seï¿½ï¿½o");
 			tabManterMovimentacao.setLabel("Manter Registro");
 			tabPesquisarMovimentacao.setLabel("Pesquisar");
 		}
@@ -108,12 +108,12 @@ public class InternacionalizacaoControle extends SelectorComposer<Window>{
 				btnLimparMovimentacao.setLabel("Limpiar");
 				btnLimparPesqMovimentacao.setLabel("Limpiar");
 				btnAtualizarPesqMovimentacao.setLabel("Buscar");
-				secao.setValue("Sección");
+				secao.setValue("Secciï¿½n");
 				Produto.setValue("Producto");
 				filtro.setValue("Filtrar");
 				pesquisa.setValue("Buscar movimientos");
 				lhProduto.setLabel("Produto");
-				lhSecao.setLabel("Sección");
+				lhSecao.setLabel("Secciï¿½n");
 				tabManterMovimentacao.setLabel("Mantenimiento");
 				tabPesquisarMovimentacao.setLabel("Buscar");
 			}
@@ -130,13 +130,13 @@ public class InternacionalizacaoControle extends SelectorComposer<Window>{
 		if(idioma.length() == 9)
 		{
 			this.menuItemLogin.setLabel("Entrar/Sair");
-			this.menuItemUsuario.setLabel("Usuário");
-			this.menuItemSecao.setLabel("Seção");
+			this.menuItemUsuario.setLabel("Usuï¿½rio");
+			this.menuItemSecao.setLabel("Seï¿½ï¿½o");
 			this.menuItemGrupo.setLabel("Grupo");
 			this.menuItemProduto.setLabel("Produto");
 			this.menuItemMovimentacao.setLabel("Movimentacao");
-			this.menuItemRelatorio.setLabel("Relatório");	
-			this.menuPrincipal.setLabel("Manutenção de registros");
+			this.menuItemRelatorio.setLabel("Relatï¿½rio");	
+			this.menuPrincipal.setLabel("Manutenï¿½ï¿½o de registros");
 		}
 		else
 		{
@@ -153,9 +153,9 @@ public class InternacionalizacaoControle extends SelectorComposer<Window>{
 			}
 			else
 			{
-				this.menuItemLogin.setLabel("Iniciar sesión/Cerrar sesión");
+				this.menuItemLogin.setLabel("Iniciar sesiï¿½n/Cerrar sesiï¿½n");
 				this.menuItemUsuario.setLabel("Usuario");
-				this.menuItemSecao.setLabel("Sección");
+				this.menuItemSecao.setLabel("Secciï¿½n");
 				this.menuItemGrupo.setLabel("Grupo");
 				this.menuItemProduto.setLabel("Producto");
 				this.menuItemMovimentacao.setLabel("Movimiento");

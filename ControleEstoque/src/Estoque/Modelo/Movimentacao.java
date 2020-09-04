@@ -2,7 +2,7 @@ package Estoque.Modelo;
 
 import java.util.ArrayList;
 
-public class Movimentacao extends ErroMensagem{
+public class Movimentacao extends ErroMensagem {
 	private int idMovimentacao;
 	private ArrayList<Produto> listaProduto = new ArrayList<Produto>();
 	private Secao secao;

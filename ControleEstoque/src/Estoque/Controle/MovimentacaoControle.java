@@ -236,7 +236,7 @@ public class MovimentacaoControle extends SelectorComposer<Window>{
 		if(!OPCAO.equals("I")) movimentacao.setIdMovimentacao(this.intIdMovimentacao.getValue());
 
 		ListModelList<String> listaNomeProduto = new ListModelList<String>();
-		listaNomeProduto.addAll(this.chosenProdutosMovimentacao.getSelectedObjects());
+		//listaNomeProduto.addAll(this.chosenProdutosMovimentacao.getSelectedObjects());
 		ArrayList<Produto> listaProduto = new ArrayList<Produto>();
 
 		while(!listaNomeProduto.isEmpty())

@@ -21,7 +21,7 @@ public class GrupoDao extends Conexao{
 		return grupo;
 	}
 	
-	//inclui uma seção no banco de dados
+	//inclui uma seï¿½ï¿½o no banco de dados
 	public Grupo incluir(Grupo grupo) throws SQLException,InterruptedException
 	{
 		Connection conn = null;
@@ -31,10 +31,10 @@ public class GrupoDao extends Conexao{
 		{
 			
 			//verifica se existe grupo com o mesmo nome
-			//para não incluir um grupo repetido
+			//para nï¿½o incluir um grupo repetido
 			if(verificaExisteGrupoNome(grupo))
 			{
-				grupo.setMensagemErro("Erro! Já existe um grupo cadastrado com esse nome.");
+				grupo.setMensagemErro("Erro! Jï¿½ existe um grupo cadastrado com esse nome.");
 				return grupo;
 			}
 			
@@ -46,7 +46,7 @@ public class GrupoDao extends Conexao{
 			
 			int auxIncluiu  = pstmt.executeUpdate();
 			if(auxIncluiu > 0) grupo.setMensagemErro("Grupo incluido com sucesso!");
-			else grupo.setMensagemErro("Erro! Grupo não foi inserido.");
+			else grupo.setMensagemErro("Erro! Grupo nï¿½o foi inserido.");
 		}
 		finally
 		{
@@ -81,7 +81,7 @@ public class GrupoDao extends Conexao{
 			{
 				grupo = montarGrupo(rs);
 			}
-			else grupo.setMensagemErro("Erro! Não existe grupo cadastrado com esse id.");
+			else grupo.setMensagemErro("Erro! Nï¿½o existe grupo cadastrado com esse id.");
 			
 		}
 		finally {
@@ -132,7 +132,7 @@ public class GrupoDao extends Conexao{
 		return listaGrupo;
 	}
 	
-	//retorna uma movimentação com o nome IGUAL ao o passado como parametro
+	//retorna uma movimentaï¿½ï¿½o com o nome IGUAL ao o passado como parametro
 	public Grupo getGrupoNome(String nome) throws SQLException,InterruptedException 
 	{
 		Grupo grupo = new Grupo();
@@ -212,14 +212,14 @@ public class GrupoDao extends Conexao{
 			//verifica se o grupo passado como parametro existe no banco de dados
 			if(!this.verificaExisteGrupoId(grupo.getIdGrupo())) 
 			{
-				grupo.setMensagemErro("Erro! Esse grupo não existe.");
+				grupo.setMensagemErro("Erro! Esse grupo nï¿½o existe.");
 				return grupo;
 			}
 			
 			//verifica se exixste um grupo no banco com o mesmo novo nome do grupo a ser alterado
 			if(verificaExisteGrupoNome(grupo))
 			{
-				grupo.setMensagemErro("Erro! Já existe um grupo cadastrado com esse nome.");
+				grupo.setMensagemErro("Erro! Jï¿½ existe um grupo cadastrado com esse nome.");
 				return grupo;
 			}
 			//altera o nome do grupo no banco
@@ -229,7 +229,7 @@ public class GrupoDao extends Conexao{
 			
 			int conta = pstmt.executeUpdate();
 			if(conta > 0)grupo.setMensagemErro("Grupo alterado com sucesso!");
-			else grupo.setMensagemErro("Erro! Grupo não foi alterado.");
+			else grupo.setMensagemErro("Erro! Grupo nï¿½o foi alterado.");
 		}
 		finally
 		{
@@ -255,14 +255,14 @@ public class GrupoDao extends Conexao{
 			conn = this.getConnection();
 			if(this.verificaExisteDependente(grupo.getIdGrupo()))
 			{
-				grupo.setMensagemErro("Erro! Não é possível excluir esse grupo pois existem produtos cadastrados com esse grupo.");
+				grupo.setMensagemErro("Erro! Nï¿½o ï¿½ possï¿½vel excluir esse grupo pois existem produtos cadastrados com esse grupo.");
 				return grupo;
 			}
 			pstmt = conn.prepareStatement("delete from grupo where id_grupo = ?");
 			pstmt.setInt(1, grupo.getIdGrupo());
 			int conta = pstmt.executeUpdate();
 			if(conta > 0) grupo.setMensagemErro("Grupo excluido com sucesso!");
-			else grupo.setMensagemErro("Erro! Grupo não foi excluido.");
+			else grupo.setMensagemErro("Erro! Grupo nï¿½o foi excluido.");
 		}
 		finally
 		{

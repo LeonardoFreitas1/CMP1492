@@ -31,4 +31,8 @@ public class Usuario extends ErroMensagem{
 	public void setAdministrador(boolean administrador) {
 		this.administrador = administrador;
 	}
+	
+	public static void main(String[] args) {
+		System.out.println("tese");
+	}
 }
