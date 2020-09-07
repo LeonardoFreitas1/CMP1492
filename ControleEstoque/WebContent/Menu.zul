@@ -1,33 +1,22 @@
 <?page title="Menu" contentType="text/html;charset=UTF-8"?>
-<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c" ?>
 <zk>
 <zscript><![CDATA[//@IMPORT
-    import Estoque.Controle.MenuControle;
-    import Estoque.Controle.InternacionalizacaoControle;
+	import Estoque.Controle.MenuControle;
 	]]></zscript>
-	<window id = "wMenu" title="Sistema de controle de estoque" border="normal" width="100%" height="100%" apply= "MenuControle, InternacionalizacaoControle">
-		<div align="left">
-		<combobox id="combInternacionalizacao">
-			<comboitem label="Espanhol"/>
-			<comboitem label="Inglês"/>
-			<comboitem label="Português"/>
-		</combobox>
-			<menubar id="menubar" left="0px">
-				<menuitem id="menuItemLogin"/>
-				<menu id="menuPrincipal">
+<window id="menu" title="Menu" border="normal" apply= " MenuControle">
+<menubar id="menubar" left="0px">
+				<menuitem id="menuItemLogin" label="Login"/>
+				<menu id="menuPrincipal" label="Manter Cadastros/Pesquisa">
 					<menupopup>
-						<menuitem id="menuItemUsuario" tooltiptext="Manutenção do cadastro de usuarios" />
-						<menuitem id="menuItemSecao" tooltiptext="manutenção do cadastro de Seções" />
-						<menuitem id="menuItemGrupo" tooltiptext="Manutenção do cadastro de Grupos" />
-						<menuitem id="menuItemProduto" tooltiptext="manutenção do cadastro de produtos" />
-						<menuitem id="menuItemMovimentacao" tooltiptext="Manutenção do cadastro de Movimentações" />
+						<menuitem id="menuItemUsuario" label="Usuario" tooltiptext="Manutenção do cadastro de Usuario" />
+						<menuitem id="menuItemCurso" label="Curso" tooltiptext="manutenção do cadastro de curso" />
+						<menuitem id="menuItemDisciplina" label="Disciplina" tooltiptext="Manutenção do cadastro de disciplina" />
+						<menuitem id="menuItemTurma" label="Turma" tooltiptext="manutenção do cadastro de turma" />
+						<menuitem id="menuItemFalta" label="Faltas" tooltiptext="Manutenção do cadastro de faltas" />
+						<menuitem id="menuItemNota" label="Notas" tooltiptext="Manutenção do cadastro de notas" />
 					</menupopup>
 				</menu>
-				<menuitem id="menuItemRelatorio" />
+				<menuitem id="menuItemRelatorio" label="Relatorio"/>
 			</menubar>
-		</div>
-	</window>
-	<![CDATA[                   
-      
-    ]]>
+</window>
 </zk>

@@ -1,0 +1,76 @@
+<?page title="Curso" contentType="text/html;charset=UTF-8"?>
+<zk>
+<zscript><![CDATA[//@IMPORT
+    //import Estoque.Controle.CursoControle apply="Estoque.Controle.CursoControle"
+	]]></zscript>
+	<window id = "Curso" title="Cadastro de Cursos" border="normal" closable="true" width="90%" >
+			
+			<tabbox>
+			<tabs>
+				<tab label="Manter Cadastro" id="tabManterCurso"/>
+				<tab label="Pesquisar" id="tabPesquisarCurso"/>
+			</tabs>
+			<tabpanels>
+				<tabpanel>
+					<grid>
+						<columns>
+							<column label="" width="100px"/>
+							<column label=""/>
+						</columns>
+						<rows>
+							<row>
+								<label value="Id" />
+								<intbox id="intIdCurso" cols="15" readonly="true" />
+							</row>
+							<row>
+								<label value="Nome" />
+								<textbox id="txtNomeCurso" cols="50"/>
+							</row>
+						</rows>
+					</grid>						
+					<groupbox>
+						<div align="center">
+						<button id="btnIncluirCurso" label="Incluir"/>
+						<button id="btnAlterarCurso" label="Alterar"/>
+						<button id="btnExcluirCurso" label="Excluir"/>
+						<button id="btnLimparCurso" label="Limpar"/>
+						</div>
+					</groupbox>
+				</tabpanel>
+				
+				<tabpanel>
+					<grid>
+						<columns>
+							<column label="" width="200px"/>
+							<column label="" />
+						</columns>
+						<rows>
+							<row>
+								<label value="Pesquisar Cursos" />
+								<textbox id="txtPesqCurso" cols="35"/>
+								<button id="btnAtualizarPesqCurso" label="Atualizar" />
+							</row>
+						</rows>
+					</grid>
+					<groupbox>
+						<listbox id="lsbPesqCurso" rows="6">
+							<listhead>
+								<listheader label="id" sort="auto" width="15%" />
+								<listheader label="Nome" sort="auto" width="85%" />
+							</listhead>
+							<listitem>
+								<listcell label="" />
+								<listcell label="" />
+							</listitem>
+						</listbox>
+					</groupbox>
+					<groupbox>
+						<div align="center">
+							<button id="btnLimparPesqCurso" label="Limpar" />
+						</div>
+					</groupbox>
+				</tabpanel>
+			</tabpanels>
+		</tabbox>
+	</window>
+</zk>

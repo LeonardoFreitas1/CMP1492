@@ -1,0 +1,85 @@
+<?page title="Disciplina" contentType="text/html;charset=UTF-8"?>
+<zk>
+<zscript><![CDATA[//@IMPORT
+   // import Estoque.Controle.DisciplinaControle; apply="Estoque.Controle.DisciplinaControle"
+	]]></zscript>
+	<window id = "Disciplina" title="Cadastro de Disciplinas" border="normal" closable="true" width="90%" >
+			
+			<tabbox>
+			<tabs>
+				<tab label="Manter Cadastro" id="tabManterDisciplina"/>
+				<tab label="Pesquisar" id="tabPesquisarDisciplina"/>
+			</tabs>
+			<tabpanels>
+				<tabpanel>
+					<grid>
+						<columns>
+							<column label="" width="100px"/>
+							<column label=""/>
+						</columns>
+						<rows>
+							<row>
+								<label value="Id" />
+								<intbox id="intIdDisciplina" cols="15" readonly="true" />
+							</row>
+							<row>
+								<label value="Nome" />
+								<textbox id="txtNomeDisciplina" cols="45"/>
+							</row>						
+							<row>
+								<label value="Curso" />
+								<combobox id = "combCurso" cols="40">
+									<comboitem label=""/>
+								</combobox>	
+							</row>
+						</rows>
+					</grid>						
+					<groupbox>
+						<div align="center">
+						<button id="btnIncluirDisciplina" label="Incluir"/>
+						<button id="btnAlterarDisciplina" label="Alterar"/>
+						<button id="btnExcluirDisciplina" label="Excluir"/>
+						<button id="btnLimparDisciplina" label="Limpar"/>
+						</div>
+					</groupbox>
+				</tabpanel>
+				
+				<tabpanel>
+					<grid>
+						<columns>
+							<column label="" width="200px"/>
+							<column label="" />
+						</columns>
+						<rows>
+							<row>
+								<label value="Pesquisar Disciplinas" />
+								<textbox id="txtPesqDisciplina" cols="35"/>
+								<button id="btnAtualizarPesqDisciplina" label="Atualizar" />
+							</row>
+						</rows>
+					</grid>
+					<groupbox>
+						<listbox id="lsbPesqDisciplina" rows="6">
+							<listhead>
+								<listheader label="Cuso" sort="auto" width="40%" />
+								<listheader label="id" sort="auto" width="15%" />
+								<listheader label="Nome" sort="auto" width="45%" />
+								
+							</listhead>
+							<listitem>
+								<listcell label="" />
+								<listcell label="" />
+								<listcell label="" />
+							</listitem>
+						</listbox>
+					</groupbox>
+					<groupbox>
+						<div align="center">
+							<button id="btnLimparPesqDisciplina" label="Limpar" />
+						</div>
+					</groupbox>
+				</tabpanel>
+			</tabpanels>
+		</tabbox>
+	</window>
+</zk>

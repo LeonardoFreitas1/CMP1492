@@ -21,27 +21,49 @@
 							<rows>
 								<row>
 									<label value="Id" />
-									<intbox id="intIdUsuario" cols="15" readonly="true" />
+									<intbox id="intIdAluno"  readonly="true" />
 								</row>
 								<row>
-									<label value="Login" />
-									<textbox id="txtNovoLoginUsu" cols="45"/>
+									<label value="Nome" />
+									<textbox id="txtNovoNome" cols="50"/>
+								</row>
+								<row>
+									<label value="E-mail" />
+									<textbox id="txtNovoEmail" cols="45"/>
 								</row>
 								<row>
 									<label value="Senha" />
-									<textbox id="txtNovaSenhaUsu" type="password" cols="40"/>
-								</row>							
+									<textbox id="txtNovaSenha" cols="40"/>
+									</row>
 								<row>
-								 	<label value= ""/>
-								 	<checkbox id="checkSenha" label="Mostar a senha" width="200px"/>
-								 </row>
+									<label value="" />
+									<checkbox id="checkSenha" label="Mostar a senha" width="200px"/>
+								</row>
+								<row>
+									<label value="Data de Nascimento" />
+									<textbox id="txtNovaDataNascimento" cols="40"/>
+								</row>	
 								<row>
 									<label value="Permissão" />
 									<combobox  id="combPermissao" value= "">
-										<comboitem label="Administrador"/>
-										<comboitem label="Padrão"/>
+										<comboitem label="Aluno"/>
+										<comboitem label="Professor"/>
+										<comboitem label="Secretaria"/>
 									</combobox>
 								</row>
+								<row id="rowMatricula" visible="false">
+									<label value="Matricula" />
+									<textbox id="txtNovaMatricula" cols="40"/>
+								</row>	
+								<row id="rowDataMatricula" visible="false">
+									<label value="Data de Matricula" />
+									<textbox id="txtNovaDataMatricula" cols="40"/>
+								</row>	
+								<row id="rowCnh" visible="false">
+									<label value="CNH" />
+									<textbox id="txtNovoCNH" cols="40"/>
+								</row>
+								
 							</rows>
 						</grid>						
 						<groupbox>
