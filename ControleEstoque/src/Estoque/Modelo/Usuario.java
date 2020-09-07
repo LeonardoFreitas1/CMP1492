@@ -1,11 +1,12 @@
 package Estoque.Modelo;
 
-public class Usuario extends ErroMensagem{
+public class Usuario {
 	
 	private int idUsuario;
-	private String login;
+	private String nome;
+	private String dataNascimento;
+	private String email;
 	private String senha;
-	private boolean administrador;
 	
 	public int getIdUsuario() {
 		return idUsuario;
@@ -13,11 +14,23 @@ public class Usuario extends ErroMensagem{
 	public void setIdUsuario(int idUsuario) {
 		this.idUsuario = idUsuario;
 	}
-	public String getLogin() {
-		return login;
+	public String getNome() {
+		return nome;
 	}
-	public void setLogin(String login) {
-		this.login = login;
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+	public String getDataNascimento() {
+		return dataNascimento;
+	}
+	public void setDataNascimento(String dataNascimento) {
+		this.dataNascimento = dataNascimento;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	public String getSenha() {
 		return senha;
@@ -25,14 +38,6 @@ public class Usuario extends ErroMensagem{
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
-	public boolean isAdministrador() {
-		return administrador;
-	}
-	public void setAdministrador(boolean administrador) {
-		this.administrador = administrador;
-	}
 	
-	public static void main(String[] args) {
-		System.out.println("tese");
-	}
+	
 }
