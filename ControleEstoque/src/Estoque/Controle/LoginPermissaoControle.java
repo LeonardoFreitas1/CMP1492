@@ -71,8 +71,9 @@ public class LoginPermissaoControle extends SelectorComposer<Window>{
 				
 				//guarda a permissão do usuario
 				usu = usuDao.getUsuarioLogin(usu.getEmail());
-				if(usu.isAdministrador()) Sessions.getCurrent().setAttribute("administrador", 1);
-				else Sessions.getCurrent().setAttribute("administrador", 0);
+				if(usu.getPermissao() == 1) Sessions.getCurrent().setAttribute("professor", 1);
+				if(usu.getPermissao() == 2) Sessions.getCurrent().setAttribute("secretaria", 1);
+				if(usu.getPermissao() == 3) Sessions.getCurrent().setAttribute("aluno", 1);
 				
 				//fecha a janela do login
 				this.Login.detach();

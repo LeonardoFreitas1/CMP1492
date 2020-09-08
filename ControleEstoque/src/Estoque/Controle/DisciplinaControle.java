@@ -280,10 +280,10 @@ public class DisciplinaControle extends SelectorComposer<Window>{
 		
 		String nomeCurso = this.combCurso.getSelectedItem().getLabel();
 		CursoDAO cursoDao = new CursoDAO();
-		disciplina.setIdCurso(cursoDao.getCursoNome(nomeCurso).getId());
+		disciplina.setIdCurso(cursoDao.getCursoNome(nomeCurso).getIdCurso());
 		
 		FuncionarioDAO funcionarioDao = new FuncionarioDAO();
-		disciplina.setIdFuncionario(funcionarioDao.getFuncionarioNome().getId());
+		disciplina.setIdFuncionario(funcionarioDao.getFuncionarioNome(this.combProfessor.getSelectedItem().getLabel().toString()).getIdFuncionario());
 		this.txtPesqDisciplina.setText("");
 		return disciplina;
 	}

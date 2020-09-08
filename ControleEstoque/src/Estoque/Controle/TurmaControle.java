@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Set;
 
 import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.select.SelectorComposer;
@@ -16,6 +17,7 @@ import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Decimalbox;
 import org.zkoss.zul.Doublespinner;
 import org.zkoss.zul.Intbox;
+import org.zkoss.zul.ListModel;
 import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Listcell;
@@ -146,8 +148,8 @@ public class TurmaControle extends SelectorComposer<Window>{
 		{
 			TurmaDAO turmaDAO = new TurmaDAO();
 			ArrayList<Turma> listaTurma = new ArrayList<Turma>();
-			listaTurma = this.atualizaDados(listaTurma);
-			boolean incluiu;
+			listaTurma = this.atualizaDados();
+			boolean incluiu = false;
 			while(!listaTurma.isEmpty())
 			{
 				incluiu = turmaDAO.incluir(listaTurma.remove(0));
@@ -184,8 +186,8 @@ public class TurmaControle extends SelectorComposer<Window>{
 			else
 			{
 				ArrayList<Turma> listaTurma = new ArrayList<Turma>();
-				listaTurma = this.atualizaDados(listaTurma);
-				boolean alterada;
+				listaTurma = this.atualizaDados();
+				boolean alterada = false;
 				while(!listaTurma.isEmpty())
 				{
 					alterada = turmaDAO.alterar(listaTurma.remove(0));
@@ -220,8 +222,8 @@ public class TurmaControle extends SelectorComposer<Window>{
 		else
 		{		
 			ArrayList<Turma> listaTurma = new ArrayList<Turma>();
-			listaTurma = this.atualizaDados(listaTurma);
-			boolean excluida;
+			listaTurma = this.atualizaDados();
+			boolean excluida= false;
 			while(!listaTurma.isEmpty())
 			{
 				excluida = turmaDAO.excluir(listaTurma.remove(0));
@@ -267,29 +269,28 @@ public class TurmaControle extends SelectorComposer<Window>{
 		return true;
 	}
 	
-	public ArrayList<Turma> atualizaDados(Turma turma)throws SQLException, InterruptedException, IOException, ClassNotFoundException 
+	public ArrayList<Turma> atualizaDados()throws SQLException, InterruptedException, IOException, ClassNotFoundException 
 	{
 		//recebe a turma com os dados antigos e a ataualiza
 	
 		//id
+		Turma turma = new Turma();
 		if(!OPCAO.equals("I")) turma.setIdTurma(this.intIdTurma.getValue());
 		
 		//disciplina
 		DisciplinaDAO disciplinaDao = new DisciplinaDAO();
-		Disciplina disciplina = disciplinaDao.getDisciplinaNome(this.combDisciplina.getText().toString());
+		Disciplina disciplina = disciplinaDao.getListaDisciplinaNome(this.combDisciplina.getText().toString()).get(0);
 		turma.setIdDisciplina(disciplina.getIdDisciplina());
 
 		ArrayList<Turma> listaTurmas = new ArrayList<Turma>();
 		
 		//alunos
-		ListModelList<String> listaNomeAluno = new ListModelList<String>();
-		listaNomeAluno.addAll(this.chosenAluno.getSelectedObjects());
+		ListModel<String> listaNomeAluno = this.chosenAluno.getModel();
 		
-		ArrayList<Aluno> listaAluno = new ArrayList<Aluno>();
 		AlunoDAO alunoDao = new AlunoDAO();
-		while(!listaNomeAluno.isEmpty())
+		for(int i=0; i<listaNomeAluno.getSize(); i++)
 		{
-			turma.setIdAluno(alunoDao.getAlunoNome(listaNomeAluno.remove(0)));
+			turma.setIdAluno(alunoDao.getAlunoNome(listaNomeAluno.getElementAt(i)).getIdAluno());
 			listaTurmas.add(turma);
 		}
 		this.atualizaDadosNotaFalta(turma);
@@ -360,13 +361,19 @@ public class TurmaControle extends SelectorComposer<Window>{
 				i++;
 			}
 			this.combDisciplina.setSelectedIndex(i);
-			
+
 			UsuarioDao usuarioDao = new UsuarioDao();
+			AlunoDAO alunoDao = new AlunoDAO();
 			
-			ArrayList<Aluno> listaAluno = turma.getListaAluno();
+			ArrayList<Aluno> listaAluno = new ArrayList<Aluno>();
+			ArrayList<Turma> listaTurma = turmaDAO.getListaAluno(turma.getIdTurma());
 			ArrayList<Usuario> listaUsuarioAluno = new ArrayList<Usuario>();
 			ListModelList<String> listaNomeAluno = new ListModelList<String>();
 			
+			while(!listaTurma.isEmpty())
+			{
+				listaAluno.add(alunoDao.getAlunoId(listaTurma.remove(0).getIdAluno()));
+			}
 			while(!listaAluno.isEmpty())
 			{
 				listaUsuarioAluno.add(usuarioDao.getUsuarioId(listaAluno.remove(0).getIdUsuario()));
@@ -454,12 +461,9 @@ public class TurmaControle extends SelectorComposer<Window>{
 		int idTurma = Integer.parseInt(lc01.getLabel().toString());
 
 		TurmaDAO turmaDao = new TurmaDAO();
-		DisciplinaDAO disciplinaDAO = new DisciplinaDAO();
-		CursoDAO cursoDAO = new CursoDAO();
+		
 		Turma turma = turmaDao.getAlunoId(idTurma);
-		Disciplina disciplina = disciplinaDAO.getDisciplinaId(turma.getIdDisciplina());
-		Curso curso = cursoDAO.getCursoId(disciplina.getIdCurso());
-		ArrayList<Turma> listaAlunoTurma = turmaDao.getAlunoId(turma.getIdTurma());//lista de alunos da turma
+		ArrayList<Turma> listaAlunoTurma = turmaDao.getListaAluno(turma.getIdTurma());//lista de alunos da turma
 		if(idTurma > 0)
 		{
 			while(!listaAlunoTurma.isEmpty())
@@ -499,20 +503,18 @@ public class TurmaControle extends SelectorComposer<Window>{
 		
 		//disciplina
 		DisciplinaDAO disciplinaDao = new DisciplinaDAO();
-		Disciplina disciplina = disciplinaDao.getDisciplinaNome(this.combDisciplina.getText().toString());
+		Disciplina disciplina = disciplinaDao.getListaDisciplinaNome(this.combDisciplina.getText().toString()).get(0);
 		turma.setIdDisciplina(disciplina.getIdDisciplina());
 
 		ArrayList<Turma> listaTurmas = new ArrayList<Turma>();
 		
 		//alunos
-		ListModelList<String> listaNomeAluno = new ListModelList<String>();
-		listaNomeAluno.addAll(this.chosenAluno.getSelectedObjects());
+		ListModel<String> listaNomeAluno = this.chosenAluno.getModel();
 		
-		ArrayList<Aluno> listaAluno = new ArrayList<Aluno>();
 		AlunoDAO alunoDao = new AlunoDAO();
-		while(!listaNomeAluno.isEmpty())
+		for(int i=0; i < listaNomeAluno.getSize();i++)
 		{
-			Aluno aluno = alunoDao.getAlunoNome(listaNomeAluno.remove(0);
+			Aluno aluno = alunoDao.getAlunoNome(listaNomeAluno.getElementAt(i));
 			turma.setFaltas(Integer.parseInt(this.doubleFalta.getValue().toString()));
 			turma.setNota(Float.parseFloat(this.decNota.getValue().toString()));
 			turma.setIdAluno(aluno.getIdAluno());
