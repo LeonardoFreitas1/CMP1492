@@ -1,9 +1,9 @@
 <?page title="Curso" contentType="text/html;charset=UTF-8"?>
 <zk>
 <zscript><![CDATA[//@IMPORT
-    //import Estoque.Controle.CursoControle apply="Estoque.Controle.CursoControle"
+    import Estoque.Controle.CursoControle;
 	]]></zscript>
-	<window id = "Curso" title="Cadastro de Cursos" border="normal" closable="true" width="90%" >
+	<window id = "Curso" title="Cadastro de Cursos" border="normal" closable="true" width="90%" apply="Estoque.Controle.CursoControle">
 			
 			<tabbox>
 			<tabs>

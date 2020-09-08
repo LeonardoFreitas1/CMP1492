@@ -8,7 +8,6 @@
 			<tabbox>
 			<tabs>
 				<tab label="Manter Cadastro" id="tabManterTurma"/>
-				<tab label="Faltas/Notas" id="tabFaltaNota"/>
 				<tab label="Pesquisar" id="tabPesquisarTurma"/>
 			</tabs>
 			<tabpanels>
@@ -34,33 +33,30 @@
 								<combobox id = "combDisciplina" cols="40">
 									<comboitem label=""/>
 								</combobox>	
+							</row>	
+							<row>
+								<label value="Alunos" />
+								<chosenbox id="chosenAluno" width="100%"/>	
 							</row>
 							<row>
-								<label value="Turma" />
-								<textbox id="txtNomeTurma" cols="50"/>
-							</row>
-							
+								<label value="" />								
+								<listbox id="listFaltaNota" width="100%">
+			        				<listhead>
+					            		<listheader label="Id Aluno" />
+					            		<listheader label="Nome Aluno" />
+					            		<listheader label="Faltas" />
+					            		<listheader label="Notas" />
+				        			</listhead>			
+				        			<listitem>
+				        				<listcell label=""></listcell>
+				        				<listcell label=""></listcell>
+				        				<listcell label="">  <doublespinner id="doubleFalta0"/></listcell>
+				        				<listcell label=""> <decimalbox id="decNota" /> </listcell>
+			        				</listitem>	       	
+			       				 </listbox>
+							</row>				
 						</rows>
 					</grid>	
-					
-					<hlayout height="320px" style="padding:10px">
-						<listbox id="listNaoTurma" hflex="1" vflex="true" multiple="true" checkmark="true">
-	        				<listhead>
-			            		<listheader label="Id" />
-			            		<listheader label="Nome" />
-		        			</listhead>				       	
-	       				 </listbox>
-				        <vbox spacing="10px" width="24px"> 
-					        <button id="TurmaAdicionar" label="Adicionar"/>
-					        <button id="turmaRemover" label="Remover"/>
-				        </vbox>
-				        <listbox id="listTurma" hflex="1" vflex="true" multiple="true" checkmark="true">
-					        <listhead>
-					            <listheader label="Id" />
-					            <listheader label="Nome" />
-					        </listhead>				       	
-				        </listbox>
-					</hlayout>
 					
 					<groupbox>
 						<div align="center">
@@ -72,63 +68,6 @@
 					</groupbox>
 				</tabpanel>
 				
-				<tabpanel>
-					<grid>
-						<columns>
-							<column label="" width="100px"/>
-							<column label=""/>
-						</columns>
-						<rows>
-							<row>
-								<label value="Id" />
-								<intbox id="intIdTurma1" cols="15" readonly="true" />
-							</row>
-							<row>
-								<label value="Curso" />
-								<combobox id = "combCurso1" cols="40">
-									<comboitem label=""/>
-								</combobox>	
-							</row>
-							<row>
-								<label value="Disciplina" />
-								<combobox id = "combDisciplina1" cols="40">
-									<comboitem label=""/>
-								</combobox>	
-							</row>
-							<row>
-								<label value="Turma" />
-								<combobox id = "combTurma" cols="40">
-									<comboitem label=""/>
-								</combobox>	
-							</row>
-							
-						</rows>
-					</grid>
-					
-					<hlayout height="320px" style="padding:10px">
-						<listbox id="listNotaFalta" hflex="1" vflex="true" >
-	        				<listhead>
-			            		<listheader label="Id Aluno" />
-			            		<listheader label="Nome Aluno" />
-			            		<listheader label="Faltas" />
-			            		<listheader label="Notas" />
-		        			</listhead>			
-		        			<listitem>
-		        				<listcell label=""></listcell>
-		        				<listcell label=""></listcell>
-		        				<listcell label="">  <doublespinner /></listcell>
-		        				<listcell label=""> <intbox /> </listcell>
-	        				</listitem>	       	
-	       				 </listbox>
-					</hlayout>
-					
-					<groupbox>
-						<div align="center">
-						<button id="btnAlterarFaltaNota" label="Alterar"/>
-						<button id="btnLimparListFalta" label="Limpar"/>
-						</div>
-					</groupbox>
-				</tabpanel>
 				
 				<tabpanel>
 					<grid>
@@ -137,18 +76,7 @@
 							<column label="" />
 						</columns>
 						<rows>
-							<row>
-								<label value="Curso" />
-								<combobox id = "combPesquisaCurso" cols="40">
-									<comboitem label=""/>
-								</combobox>	
-							</row>
-							<row>
-								<label value="Disciplina" />
-								<combobox id = "combPesquisaDisciplina" cols="40">
-									<comboitem label=""/>
-								</combobox>	
-							</row>
+							
 							<row>
 								<label value="Pesquisar Turmas" />
 								<textbox id="txtPesqTurma" cols="35"/>
@@ -159,8 +87,9 @@
 					<groupbox>
 						<listbox id="lsbPesqTurma" rows="6">
 							<listhead>
-								<listheader label="id" sort="auto" width="15%" />
-								<listheader label="Turma" sort="auto" width="85%" />
+								<listheader label="id turma" sort="auto" width="15%" />
+								<listheader label="disciplina" sort="auto" width="45%" />
+								<listheader label="curso" sort="auto" width="45%" />
 							</listhead>
 							<listitem>
 								<listcell label="" />

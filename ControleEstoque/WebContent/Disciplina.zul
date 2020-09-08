@@ -1,9 +1,9 @@
 <?page title="Disciplina" contentType="text/html;charset=UTF-8"?>
 <zk>
 <zscript><![CDATA[//@IMPORT
-   // import Estoque.Controle.DisciplinaControle; apply="Estoque.Controle.DisciplinaControle"
+   import Estoque.Controle.DisciplinaControle; 
 	]]></zscript>
-	<window id = "Disciplina" title="Cadastro de Disciplinas" border="normal" closable="true" width="90%" >
+	<window id = "Disciplina" title="Cadastro de Disciplinas" border="normal" closable="true" apply="Estoque.Controle.DisciplinaControle" width="90%" >
 			
 			<tabbox>
 			<tabs>
@@ -29,6 +29,12 @@
 							<row>
 								<label value="Curso" />
 								<combobox id = "combCurso" cols="40">
+									<comboitem label=""/>
+								</combobox>	
+							</row>
+							<row>
+								<label value="Professor" />
+								<combobox id = "combProfessor" cols="40">
 									<comboitem label=""/>
 								</combobox>	
 							</row>

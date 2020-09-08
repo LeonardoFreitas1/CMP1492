@@ -1,4 +1,4 @@
-<?page title="Usuario" contentType="text/html;charset=UTF-8"?>
+3<?page title="Usuario" contentType="text/html;charset=UTF-8"?>
 <zk>
 <zscript><![CDATA[//@IMPORT
     import Estoque.Controle.UsuarioControle;
@@ -20,20 +20,20 @@
 							</columns>
 							<rows>
 								<row>
-									<label value="Id" />
-									<intbox id="intIdAluno"  readonly="true" />
+									<label value="Id Usuario" />
+									<intbox id="intIdUsuario"  readonly="true" />
 								</row>
 								<row>
 									<label value="Nome" />
-									<textbox id="txtNovoNome" cols="50"/>
+									<textbox id="txtNome" cols="50"/>
 								</row>
 								<row>
 									<label value="E-mail" />
-									<textbox id="txtNovoEmail" cols="45"/>
+									<textbox id="txtEmail" cols="45"/>
 								</row>
 								<row>
 									<label value="Senha" />
-									<textbox id="txtNovaSenha" cols="40"/>
+									<textbox id="txtSenha" cols="40"/>
 									</row>
 								<row>
 									<label value="" />
@@ -46,22 +46,22 @@
 								<row>
 									<label value="Permissão" />
 									<combobox  id="combPermissao" value= "">
-										<comboitem label="Aluno"/>
-										<comboitem label="Professor"/>
-										<comboitem label="Secretaria"/>
+										<comboitem id="comboitemAluno" label="Aluno"/>
+										<comboitem id="comboitemProfessor" label="Professor"/>
+										<comboitem id="comboitemSecretaria" label="Secretaria"/>
 									</combobox>
 								</row>
 								<row id="rowMatricula" visible="false">
 									<label value="Matricula" />
-									<textbox id="txtNovaMatricula" cols="40"/>
+									<textbox id="txtMatricula" cols="40"/>
 								</row>	
 								<row id="rowDataMatricula" visible="false">
 									<label value="Data de Matricula" />
-									<textbox id="txtNovaDataMatricula" cols="40"/>
+									<textbox id="txtDataMatricula" cols="40"/>
 								</row>	
 								<row id="rowCnh" visible="false">
 									<label value="CNH" />
-									<textbox id="txtNovoCNH" cols="40"/>
+									<textbox id="txtCnh" cols="40"/>
 								</row>
 								
 							</rows>
