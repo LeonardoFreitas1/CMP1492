@@ -16,11 +16,16 @@ import org.zkoss.zul.Intbox;
 import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Listcell;
 import org.zkoss.zul.Listitem;
+import org.zkoss.zul.Row;
 import org.zkoss.zul.Tab;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
 
+import Estoque.Dao.AlunoDAO;
+import Estoque.Dao.FuncionarioDAO;
 import Estoque.Dao.UsuarioDao;
+import Estoque.Modelo.Aluno;
+import Estoque.Modelo.Funcionario;
 import Estoque.Modelo.Usuario;
 import Estoque.Util.Utilidade;
 
@@ -29,7 +34,7 @@ public class UsuarioControle  extends SelectorComposer<Window>{
 	@Wire
 	Checkbox checkSenha;
 	@Wire
-	Textbox txtNovoLoginUsu, txtNovaSenhaUsu, txtPesqUsu;
+	Textbox txtNome, txtEmail, txtSenha, txtDataNascimento, txtPesqUsu, txtMatricula, txtDataMatricula, txtCnh;
 	@Wire
 	Button btnIncluirUsu, btnAlterarUsu, btnExcluirUsu, btnLimparUsu, btnAtualizarPesqUsu, btnLimparPesqUsuario;	
 	@Wire
@@ -39,20 +44,51 @@ public class UsuarioControle  extends SelectorComposer<Window>{
 	@Wire 
 	Intbox intIdUsuario;
 	@Wire
-	Comboitem combItemAdmin, combItemPadrao;
+	Comboitem combItemAluno, combItemProfessor, comboitemSecretaria;
 	@Wire
 	Tab tabManterUsuario;
+	@Wire
+	Row rowMatricula, rowDataMatricula, rowCnh;
+	@Wire
 	
 	public String OPCAO = "";
+		
+	@Listen("onSelect=#combItemAluno")
+	public void camposAluno()
+	{
+		this.rowDataMatricula.setVisible(true);
+		this.rowMatricula.setVisible(true);
+		this.rowCnh.setVisible(false);
+	}
 	
-
+	@Listen("onSelect=#combItemProfessor")
+	public void camposfuncionario()
+	{
+		this.rowDataMatricula.setVisible(false);
+		this.rowMatricula.setVisible(false);
+		this.rowCnh.setVisible(true);
+	}
+	
+	@Listen("onSelect=#comboitemSecretaria")
+	public void camposfuncionarioSecretaria()
+	{
+		this.camposfuncionario();
+	}
+	
+	public void esconderCampos()
+	{
+		this.rowDataMatricula.setVisible(false);
+		this.rowMatricula.setVisible(false);
+		this.rowCnh.setVisible(false);
+	}
+	
 	//ao criar a janela de usuario define as permissões
 	@Listen("onCreate=#Usuario")
 	public void permissao()
 	{
 		//de acordo com a permissao bloqueia ou desbloqueia os botões de incluir, alterar e excluir
 		int admin = Integer.parseInt(Sessions.getCurrent().getAttribute("administrador").toString());
-		if(admin == 1)
+		if(admin == 1 || admin == 2)
 		{
 			//desbloqueia
 			btnIncluirUsu.setDisabled(false);
@@ -79,19 +115,47 @@ public class UsuarioControle  extends SelectorComposer<Window>{
 		{
 			usuario.setIdUsuario(this.intIdUsuario.getValue());		
 		}
-		usuario.setLogin(this.txtNovoLoginUsu.getValue());
-		usuario.setSenha(this.txtNovaSenhaUsu.getValue());
-		if(this.combPermissao.getText().length() == 13) 
+		usuario.setNome(this.txtNome.getValue());
+		usuario.setEmail(this.txtEmail.getValue());
+		usuario.setSenha(this.txtSenha.getValue());
+		usuario.setDataNascimento(this.txtDataNascimento.getValue());
+		
+		this.txtPesqUsu.setText("");
+		return usuario;
+	}
+	
+	
+	public Aluno atualizaDadosAluno(Aluno aluno) throws ClassNotFoundException, SQLException, InterruptedException, IOException
+	{
+		this.validaDados();//verifica se os dados na tela são válidos
+		
+		
+		aluno.setMatricula(this.txtMatricula.getValue());
+		aluno.setDataMatricula(this.txtDataMatricula.getValue());
+		
+		this.txtPesqUsu.setText("");
+		return aluno;
+	}
+		
+	public Funcionario atualizaDadosFuncionario(Funcionario funcionario)throws SQLException, InterruptedException, IOException, ClassNotFoundException 
+	{
+		this.validaDados();//verifica se os dados na tela são válidos		
+		
+		funcionario.setCNH(this.txtCnh.getValue());
+		if(this.combPermissao.getSelectedItem() == this.combItemProfessor)
 		{
-			usuario.setAdministrador(true);		
+			funcionario.setCargo(1);
 		}
 		else
 		{
-			usuario.setAdministrador(false);
-		}
-
+			if(this.combPermissao.getSelectedItem() == this.comboitemSecretaria)
+			{
+				funcionario.setCargo(2);
+			}
+		}		
+		
 		this.txtPesqUsu.setText("");
-		return usuario;
+		return funcionario;
 	}
 	
 	//verifica se os dados foram selecionados e os digitados não são nulos
@@ -100,13 +164,18 @@ public class UsuarioControle  extends SelectorComposer<Window>{
 		int conta = 0;
 		String mensagem = "";
 		
-		if(this.txtNovoLoginUsu.getText().toString().length() == 0)
+		if(this.txtNome.getText().toString().length() == 0)
 		{
 			conta++;
 			mensagem += "Informe o nome \n";
 		}
+		if(this.txtEmail.getText().toString().length() == 0)
+		{
+			conta++;
+			mensagem += "Informe o email \n";
+		}
 		
-		if(this.txtNovaSenhaUsu.getText().toString().length() == 0)
+		if(this.txtSenha.getText().toString().length() == 0)
 		{
 			conta++;
 			mensagem += "Informe a senha \n";
@@ -133,7 +202,7 @@ public class UsuarioControle  extends SelectorComposer<Window>{
 		ArrayList<Usuario> listaUsuario = new ArrayList<Usuario>();
 		
 		//obtem todos os usuarios que possuem no login o que está digitado na caixa de pesquisa
-		listaUsuario = UsuarioDao.getListaLoginNome(txtPesqUsu.getText().toString());
+		listaUsuario = UsuarioDao.getListaUsuarioNome(txtPesqUsu.getText().toString());
 		
 		while(!listaUsuario.isEmpty())
 		{
@@ -146,16 +215,16 @@ public class UsuarioControle  extends SelectorComposer<Window>{
 			lc01.setLabel(Integer.toString(listaUsuario.get(0).getIdUsuario()));
 			
 			//preenche o campo do login 
-			lc02.setLabel(listaUsuario.get(0).getLogin());
+			lc02.setLabel(listaUsuario.get(0).getNome());
 			
 			//preenche o campo da permissão
-			if(listaUsuario.remove(0).isAdministrador())
+			if(listaUsuario.remove(0).getcargo() == 1)
 			{
-				lc03.setLabel("Administrador");
+				lc03.setLabel("Professor");
 			}
 			else
 			{
-				lc03.setLabel("Padrão");
+				lc03.setLabel("Secretaria");
 			}
 			
 			//insere na linha os campos 
@@ -173,8 +242,8 @@ public class UsuarioControle  extends SelectorComposer<Window>{
 	@Listen("onCheck = #checkSenha")
 	public void mostrarSenha()
 	{
-		if(checkSenha.isChecked())this.txtNovaSenhaUsu.setType("text");
-		else this.txtNovaSenhaUsu.setType("password");
+		if(checkSenha.isChecked())this.txtSenha.setType("text");
+		else this.txtSenha.setType("password");
 	}
 		
 	//ao clicar no botão incluir
@@ -189,13 +258,41 @@ public class UsuarioControle  extends SelectorComposer<Window>{
 		if(validaDados())//verifica se os dados são válidos
 		{
 			usuario = this.atualizaDadosUsuario(usuario);// atualiza os dados do objeto
-			usuario = usuarioDao.incluir(usuario);//tenta incluir no banco 
-			
-			if(usuario.getMensagemErro() == "Usuario incluido com sucesso!")
+			boolean incluir = usuarioDao.incluir(usuario);//tenta incluir no banco 			
+			if(!incluir) Utilidade.mensagem("Erro! Usuario não foi incluido.");
+			else
 			{
-				this.limpaDados();
-			}
-			Utilidade.mensagem(usuario.getMensagemErro());
+				if(this.combPermissao.getSelectedItem() == this.combItemAluno)
+				{
+					AlunoDAO alunoDao = new AlunoDAO();
+					Aluno aluno = new Aluno();
+					aluno = this.atualizaDadosAluno(aluno);
+					aluno.setIdUsuario(usuario.getIdUsuario());
+					incluir = alunoDao.incluir(aluno);
+					if(!incluir) Utilidade.mensagem("Erro! Aluno não foi incluido.");
+					else
+					{
+						Utilidade.mensagem("Aluno incluido com sucesso!");
+						this.limpaDados();
+					}
+				}
+				
+				if(this.combPermissao.getSelectedItem() != this.combItemAluno)
+				{
+					FuncionarioDAO funcionarioDao = new FuncionarioDAO();
+					Funcionario funcionario = new Funcionario();
+					funcionario = this.atualizaDadosFuncionario(funcionario);
+					funcionario.setIdUsuario(usuario.getIdUsuario());
+					incluir = funcionarioDao.incluir(funcionario);
+					if(!incluir) Utilidade.mensagem("Erro! Funcionario não foi incluido.");
+					else
+					{
+						Utilidade.mensagem("Funcionario incluido com sucesso!");
+						this.limpaDados();
+					}
+				}	
+			}			
+			
 		}
 	}
 	
@@ -215,11 +312,41 @@ public class UsuarioControle  extends SelectorComposer<Window>{
 		else
 		{
 			usuario = this.atualizaDadosUsuario(usuario);
-			usuario = usuarioDAO.alterar(usuario);
-										
-			Utilidade.mensagem(usuario.getMensagemErro());
+			boolean alterado = usuarioDAO.alterar(usuario);
+			if(!alterado) Utilidade.mensagem("Erro! Usuario não alterado.");
+			else
+			{
+				if(this.combPermissao.getSelectedItem() == this.combItemAluno)
+				{
+					AlunoDAO alunoDao = new AlunoDAO();
+					Aluno aluno = new Aluno();
+					aluno = this.atualizaDadosAluno(aluno);
+					aluno.setIdUsuario(usuario.getIdUsuario());
+					alterado = alunoDao.alterar(aluno);
+					if(!alterado) Utilidade.mensagem("Erro! Aluno não foi alterado.");
+					else
+					{
+						Utilidade.mensagem("Aluno alterado com sucesso!");
+						this.limpaDados();
+					}
+				}
+				
+				if(this.combPermissao.getSelectedItem() != this.combItemAluno)
+				{
+					FuncionarioDAO funcionarioDao = new FuncionarioDAO();
+					Funcionario funcionario = new Funcionario();
+					funcionario = this.atualizaDadosFuncionario(funcionario);
+					funcionario.setIdUsuario(usuario.getIdUsuario());
+					alterado = funcionarioDao.alterar(funcionario);
+					if(!alterado) Utilidade.mensagem("Erro! Funcionario não foi alterado.");
+					else
+					{
+						Utilidade.mensagem("Funcionario alterado com sucesso!");
+						this.limpaDados();
+					}
+				}	
+			}			
 		}
-		this.limpaDados();
 	}
 	
 	//ao clicar no botão excluir
@@ -238,12 +365,43 @@ public class UsuarioControle  extends SelectorComposer<Window>{
 		else
 		{				
 			usuario = this.atualizaDadosUsuario(usuario);
-			usuario = usuarioDAO.excluir(usuario);
+			boolean excluido = usuarioDAO.excluir(usuario);
 			
-			Utilidade.mensagem(usuario.getMensagemErro());
+			if(!excluido) Utilidade.mensagem("Erro! Usuário não excluido.");
+			
+			else
+			{
+				if(this.combPermissao.getSelectedItem() == this.combItemAluno)
+				{
+					AlunoDAO alunoDao = new AlunoDAO();
+					Aluno aluno = new Aluno();
+					aluno = this.atualizaDadosAluno(aluno);
+					aluno.setIdUsuario(usuario.getIdUsuario());
+					excluido = alunoDao.excluir(aluno);
+					if(!excluido) Utilidade.mensagem("Erro! Aluno não foi excluido.");
+					else
+					{
+						Utilidade.mensagem("Aluno excluido com sucesso!");
+						this.limpaDados();
+					}
+				}
+				
+				if(this.combPermissao.getSelectedItem() != this.combItemAluno)
+				{
+					FuncionarioDAO funcionarioDao = new FuncionarioDAO();
+					Funcionario funcionario = new Funcionario();
+					funcionario = this.atualizaDadosFuncionario(funcionario);
+					funcionario.setIdUsuario(usuario.getIdUsuario());
+					excluido = funcionarioDao.excluir(funcionario);
+					if(!excluido) Utilidade.mensagem("Erro! Funcionario não foi excluido.");
+					else
+					{
+						Utilidade.mensagem("Funcionario excluido com sucesso!");
+						this.limpaDados();
+					}
+				}	
+			}
 		}
-		
-		this.limpaDados();
 	}
 	
 	//ao clicar no botão limpar na tela de pesquisa
@@ -287,17 +445,38 @@ public class UsuarioControle  extends SelectorComposer<Window>{
 			{
 				//preenche a aba de manutenção com os dados do usuario selecionado
 				this.intIdUsuario.setText(Integer.toString(usuario.getIdUsuario()));
-				this.txtNovoLoginUsu.setText(usuario.getLogin());
-				this.txtNovaSenhaUsu.setText(usuario.getSenha());
-				if(usuario.isAdministrador()) this.combPermissao.setText("Administrador");
-				else this.combPermissao.setText("Padrão");
+				this.txtNome.setText(usuario.getNome());
+				this.txtSenha.setText(usuario.getSenha());
+				this.txtEmail.setText(usuario.getEmail());
+				this.txtDataNascimento.setText(usuario.getDataNascimento());
+				if(usuario.getPermissao() == "Aluno")
+				{
+					Aluno aluno = new Aluno();
+					AlunoDAO alunoDao = new AlunoDAO();
+					aluno = alunoDao.getAlunoNome(usuario.getNome());
+					this.combPermissao.setSelectedItem(this.combItemAluno);
+					this.txtMatricula.setText(aluno.getMatricula());
+					this.txtDataMatricula.setText(aluno.getDataMatricula());
+				}
+				if(usuario.getPermissao() != "Aluno")
+				{
+					Funcionario funcionario = new Funcionario();
+					FuncionarioDAO funcionarioDao = new FuncionarioDAO();
+					funcionario = funcionarioDao.getFuncionarioNome(usuario.getNome());
+					if(funcionario.getCargo() == 1)
+					{
+						this.combPermissao.setSelectedItem(this.combItemProfessor);
+					}
+					else this.combPermissao.setSelectedItem(this.comboitemSecretaria);
+					this.txtCnh.setText(funcionario.getCNH());
+				}
 				
 				//limpa a aba de pesquisa
 				this.limpaLsbPesquisa();
 				this.txtPesqUsu.setText("");
 				this.tabManterUsuario.setSelected(true);
 			}
-			else Utilidade.mensagem(usuario.getMensagemErro());
+			else Utilidade.mensagem("Selecione um usuário");
 		}
 	}
 	
@@ -307,10 +486,15 @@ public class UsuarioControle  extends SelectorComposer<Window>{
 	public void limpaDados()
 		{
 			OPCAO = "";
+			this.esconderCampos();
 			this.intIdUsuario.setText("");
-			this.txtNovoLoginUsu.setText("");
-			this.txtNovaSenhaUsu.setText("");
-			this.txtPesqUsu.setText("");
+			this.txtCnh.setText("");
+			this.txtDataMatricula.setText("");
+			this.txtDataNascimento.setText("");
+			this.txtEmail.setText("");
+			this.txtMatricula.setText("");
+			this.txtNome.setText("");
+			this.txtSenha.setText("");
 			this.combPermissao.setText("");
 			this.checkSenha.setChecked(false);
 			this.limpaLsbPesquisa();				

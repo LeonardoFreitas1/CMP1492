@@ -15,16 +15,14 @@ import org.zkoss.zul.Window;
 public class MenuControle extends SelectorComposer<Window>{
 
 	@Wire
-	Menuitem menuItemLogin, menuItemUsuario, menuItemSecao, menuItemGrupo, menuItemProduto, menuItemMovimentacao, menuItemRelatorio;
+	Menuitem menuItemLogin, menuItemUsuario, menuItemCurso, menuItemDisciplina, menuItemTurma, menuItemFalta, menuItemNota, menuItemRelatorio;
 	@Wire
 	Menu menuPrincipal;
 	@Wire
-	Window Login;
-	@Wire
-	Combobox combInternacionalizacao;
+	Window Login,menu;
 	
 	//ao criar a tela do menu
-	@Listen("onCreate = #wMenu")
+	@Listen("onCreate = #Menu")
 	public void inicio()
 	{		
 		//guarda que o login é 0(não foi feto)
@@ -82,35 +80,26 @@ public class MenuControle extends SelectorComposer<Window>{
 		wAberta.doModal();
 	}
 	
-	@Listen("onClick=#menuItemSecao")
-	public void abrirJanelaSecao()
+	@Listen("onClick=#menuItemCurso")
+	public void abrirJanelaCurso()
 	{
-		String window = "Secao.zul";
+		String window = "Curso.zul";
 		Window wAberta = (Window)Executions.createComponents(window, null, null);
 		wAberta.doModal();
 	}
 	
-	@Listen("onClick=#menuItemGrupo")
-	public void abrirJanelaGrupo()
+	@Listen("onClick=#menuItemDisciplina")
+	public void abrirJanelaDisciplina()
 	{
-		String window = "Grupo.zul";
+		String window = "Disciplina.zul";
 		Window wAberta = (Window)Executions.createComponents(window, null, null);
 		wAberta.doModal();
 	}
 	
-	@Listen("onClick=#menuItemProduto")
-	public void abrirJanelaProduto()
+	@Listen("onClick=#menuItemTurma")
+	public void abrirJanelaTurma()
 	{
-		String window = "Produto.zul";
-		Window wAberta = (Window)Executions.createComponents(window, null, null);
-		wAberta.doModal();
-	}
-	
-	
-	@Listen("onClick=#menuItemMovimentacao")
-	public void abrirJanelaMovimentacao()
-	{
-		String window = "Movimentacao.zul";
+		String window = "Turma.zul";
 		Window wAberta = (Window)Executions.createComponents(window, null, null);
 		wAberta.doModal();
 	}

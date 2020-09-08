@@ -30,10 +30,7 @@ public class LoginPermissaoControle extends SelectorComposer<Window>{
 	@Wire
 	Textbox txtUsu, txtSenha;
 	@Wire
-	Button btnLogin, btnLogout, 
-	btnIncluirUsu, btnAlterarUsu, btnExcluirUsu,
-	btnIncluirProduto,	btnAlterarProduto,	btnExcluirProduto,
-	btnIncluirSecao, btnAlterarSecao, btnExcluirSecao;
+	Button btnLogin, btnLogout;
 	@Wire
 	Window Login;
 	@Wire
@@ -73,7 +70,7 @@ public class LoginPermissaoControle extends SelectorComposer<Window>{
 				Sessions.getCurrent().setAttribute("login", 1);
 				
 				//guarda a permissão do usuario
-				usu = usuDao.getUsuarioLogin(usu.getLogin());
+				usu = usuDao.getUsuarioLogin(usu.getEmail());
 				if(usu.isAdministrador()) Sessions.getCurrent().setAttribute("administrador", 1);
 				else Sessions.getCurrent().setAttribute("administrador", 0);
 				
@@ -82,7 +79,7 @@ public class LoginPermissaoControle extends SelectorComposer<Window>{
 				
 
 				//emite uma mensagem para o usuario avisando se o login foi efetuado ou não.
-				Utilidade.mensagem("Bem vindo(a) " + usu.getLogin());
+				Utilidade.mensagem("Bem vindo(a) ");
 			}
 			else
 			{
@@ -107,7 +104,7 @@ public class LoginPermissaoControle extends SelectorComposer<Window>{
 	public Usuario atualizaDadosLogin(Usuario usuario)throws SQLException, InterruptedException, IOException, ClassNotFoundException 
 	{
 		//atualiza o objeto usuario com as informações que estão na tela
-		usuario.setLogin(this.txtUsu.getValue());
+		usuario.setEmail(this.txtUsu.getValue());
 		usuario.setSenha(this.txtSenha.getValue());
 		return usuario;
 	}
